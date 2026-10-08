@@ -9,7 +9,7 @@ Monorepo con dos aplicaciones independientes:
 
 1. Base de datos: ejecutar `tienda-backend/tienda_virtual3.sql` en MySQL (crea `tienda_virtual3` desde cero, con DROP previo).
    Hibernate está en `ddl-auto=validate`: **cualquier cambio de entidad requiere actualizar también el script SQL**.
-2. Backend (puerto 8080): `cd tienda-backend && mvn spring-boot:run`
+2. Backend (puerto 8080): `cd tienda-backend && .\mvnw.cmd spring-boot:run`
    Credenciales de BD por variables de entorno `DB_URL`, `DB_USERNAME`, `DB_PASSWORD` (por defecto root/root).
 3. Frontend (puerto 4200): `cd tienda-frontend && npm install && npm start`
    `proxy.conf.json` redirige `/api` y `/uploads` a `localhost:8080`; `environment.apiUrl` es `''` en desarrollo.
@@ -36,5 +36,5 @@ Usuarios de prueba: `admin@tienda.com / Admin123`, `empleado@tienda.com / Emplea
 
 - Código, nombres y mensajes en **español** (siguiendo el estilo existente: `listar`, `crear`, `obtenerEntidad`...).
 - Cambios pequeños y enfocados; un commit por mejora con mensaje descriptivo en español.
-- Antes de dar algo por terminado: `mvn -q compile` en el backend y `npx ng build` en el frontend.
+- Antes de dar algo por terminado: `.\mvnw.cmd -q compile` en el backend y `npx ng build` en el frontend.
 - No subir secretos ni modificar `environment.prod.ts` sin indicarlo.
