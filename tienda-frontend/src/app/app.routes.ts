@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 
 import { authGuard } from './core/guards/auth-guard';
 import { adminGuard } from './core/guards/admin-guard';
+import { clienteGuard } from './core/guards/cliente-guard';
 
 export const routes: Routes = [
 
@@ -13,6 +14,7 @@ export const routes: Routes = [
         { path: 'catalogo', loadComponent: () => import('./features/tienda/producto-catalogo/producto-catalogo').then(m => m.ProductoCatalogo) },
         { path: 'producto/:id', loadComponent: () => import('./features/tienda/producto-detalle/producto-detalle').then(m => m.ProductoDetalle) },
         { path: 'carrito', loadComponent: () => import('./features/tienda/carrito/carrito').then(m => m.Carrito) },
+        { path: 'mis-compras', canActivate: [clienteGuard], loadComponent: () => import('./features/tienda/mis-compras/mis-compras').then(m => m.MisCompras) },
     ],
 },
 

@@ -106,8 +106,7 @@ export class Carrito {
         // Mensaje emergente de confirmación de compra.
         this.notification.success('¡Compra realizada con éxito! Gracias por tu pedido.');
 
-        // Por ahora regresamos al inicio
-        this.router.navigate(['/']);
+        this.router.navigate(['/mis-compras']);
 
       },
 

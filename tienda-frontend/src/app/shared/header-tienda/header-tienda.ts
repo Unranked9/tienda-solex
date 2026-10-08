@@ -49,6 +49,10 @@ export class HeaderTienda {
     return rol === 'ROLE_ADMIN' || rol === 'ROLE_EMPLEADO';
   }
 
+  esCliente(): boolean {
+    return this.authService.getRol() === 'ROLE_CLIENTE';
+  }
+
   logout(): void {
     this.menuAbierto.set(false);
     this.authService.logout();

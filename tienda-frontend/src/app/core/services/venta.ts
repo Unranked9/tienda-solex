@@ -41,4 +41,11 @@ export class VentaService {
       request
     );
   }
+
+  misCompras(): Observable<Venta[]> {
+
+    return this.http.get<Venta[]>(
+      `${this.baseUrl}/mis-compras`
+    );
+  }
 }

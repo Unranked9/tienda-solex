@@ -1,0 +1,65 @@
+<div class="mis-compras-page">
+
+  <a routerLink="/" class="volver">&larr; Seguir comprando</a>
+  <h1>Mis compras</h1>
+
+  @if (cargando()) {
+    <p class="cargando">Cargando tus compras...</p>
+  } @else if (ventas().length === 0) {
+    <div class="compras-vacio">
+      <p>Aún no has realizado ninguna compra.</p>
+      <a routerLink="/catalogo" class="btn-primary">Ver catálogo</a>
+    </div>
+  } @else {
+    <div class="compras-lista">
+      @for (venta of ventas(); track venta.id) {
+        <div class="compra-card">
+
+          <div class="compra-resumen">
+            <div class="compra-info">
+              <h3>{{ venta.numeroVenta }}</h3>
+              <p class="compra-fecha">{{ venta.fecha | date: 'dd/MM/yyyy HH:mm' }}</p>
+            </div>
+
+            <div class="compra-metodo">{{ venta.metodoPago }}</div>
+
+            <span class="badge-estado" [class]="claseBadge(venta.estado)">{{ venta.estado }}</span>
+
+            <div class="compra-total">S/ {{ venta.total.toFixed(2) }}</div>
+
+            <button type="button" class="btn-outline btn-detalle" (click)="toggleDetalle(venta.id)">
+              {{ expandidoId() === venta.id ? 'Ocultar detalle' : 'Ver detalle' }}
+            </button>
+          </div>
+
+          @if (expandidoId() === venta.id) {
+            <div class="compra-detalle">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio unit.</th>
+                    <th>Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (detalle of venta.detalles; track detalle.productoId) {
+                    <tr>
+                      <td>{{ detalle.productoNombre }}</td>
+                      <td>{{ detalle.cantidad }}</td>
+                      <td>S/ {{ detalle.precioUnitario.toFixed(2) }}</td>
+                      <td>S/ {{ detalle.subtotal.toFixed(2) }}</td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+            </div>
+          }
+
+        </div>
+      }
+    </div>
+  }
+
+</div>
