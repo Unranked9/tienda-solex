@@ -6,6 +6,7 @@ import { Producto } from '../../../models/producto.model';
 import { ProductoService } from '../../../core/services/producto';
 import { Carrito } from '../../../core/services/carrito';
 import { environment } from '../../../../environments/environment';
+import { PRODUCTO_PLACEHOLDER, manejarErrorImagenProducto } from '../../../shared/utils/imagen.util';
 
 @Component({
   selector: 'app-producto-detalle',
@@ -17,6 +18,8 @@ export class ProductoDetalle implements OnInit {
   producto?: Producto;
   cantidad = 1;
   fileBaseUrl = environment.apiUrl;
+  placeholderImg = PRODUCTO_PLACEHOLDER;
+  onImgError = manejarErrorImagenProducto;
 
   constructor(
     private route: ActivatedRoute,

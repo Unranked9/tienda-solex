@@ -4,7 +4,7 @@
 
 <div class="detalle" *ngIf="producto">
   <div class="detalle-img-wrap">
-    <img [src]="fileBaseUrl + producto.imagenUrl" *ngIf="producto.imagenUrl" />
+    <img [src]="producto.imagenUrl ? fileBaseUrl + producto.imagenUrl : placeholderImg" (error)="onImgError($event)" />
   </div>
 
   <div class="detalle-info">

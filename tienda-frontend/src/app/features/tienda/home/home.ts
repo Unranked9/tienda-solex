@@ -8,6 +8,7 @@ import { CategoriaService } from '../../../core/services/categoria';
 import { Carrito } from '../../../core/services/carrito';
 import { NotificationService } from '../../../core/services/notification';
 import { environment } from '../../../../environments/environment';
+import { PRODUCTO_PLACEHOLDER, manejarErrorImagenProducto } from '../../../shared/utils/imagen.util';
 
 @Component({
   selector: 'app-home',
@@ -20,6 +21,8 @@ export class Home implements OnInit {
   categorias: Categoria[] = [];
   cargandoProductos = true;
   fileBaseUrl = environment.apiUrl;
+  placeholderImg = PRODUCTO_PLACEHOLDER;
+  onImgError = manejarErrorImagenProducto;
 
   constructor(
     private productoService: ProductoService,

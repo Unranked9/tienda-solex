@@ -8,6 +8,7 @@ import { ProductoService } from '../../../core/services/producto';
 import { CategoriaService } from '../../../core/services/categoria';
 import { Carrito } from '../../../core/services/carrito';
 import { environment } from '../../../../environments/environment';
+import { PRODUCTO_PLACEHOLDER, manejarErrorImagenProducto } from '../../../shared/utils/imagen.util';
 
 @Component({
   selector: 'app-producto-catalogo',
@@ -22,6 +23,8 @@ export class ProductoCatalogo implements OnInit {
   filtroNombre = '';
   categoriaSeleccionada: number | null = null;
   fileBaseUrl = environment.apiUrl;
+  placeholderImg = PRODUCTO_PLACEHOLDER;
+  onImgError = manejarErrorImagenProducto;
 
   constructor(
     private productoService: ProductoService,

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Producto } from '../../../../models/producto.model';
 import { ProductoService } from '../../../../core/services/producto';
 import { environment } from '../../../../../environments/environment';
+import { PRODUCTO_PLACEHOLDER, manejarErrorImagenProducto } from '../../../../shared/utils/imagen.util';
 
 @Component({
   selector: 'app-producto-list',
@@ -14,6 +15,8 @@ import { environment } from '../../../../../environments/environment';
 export class ProductoList implements OnInit {
   productos: Producto[] = [];
   fileBaseUrl = environment.apiUrl;
+  placeholderImg = PRODUCTO_PLACEHOLDER;
+  onImgError = manejarErrorImagenProducto;
 
   constructor(
     private productoService: ProductoService,

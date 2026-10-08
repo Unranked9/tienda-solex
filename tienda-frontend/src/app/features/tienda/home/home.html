@@ -105,11 +105,12 @@
       @for (p of productosDestacados; track p.id) {
         <a [routerLink]="['/producto', p.id]" class="producto-card-home">
           <div class="producto-img-wrap-home">
-            @if (p.imagenUrl) {
-              <img [src]="fileBaseUrl + p.imagenUrl" [alt]="p.nombre" loading="lazy" />
-            } @else {
-              <div class="producto-sin-imagen">Sin imagen</div>
-            }
+            <img
+              [src]="p.imagenUrl ? fileBaseUrl + p.imagenUrl : placeholderImg"
+              [alt]="p.nombre"
+              loading="lazy"
+              (error)="onImgError($event)"
+            />
             @if (p.stock === 0) {
               <span class="badge-sinstock">Sin stock</span>
             }

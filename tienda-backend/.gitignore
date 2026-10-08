@@ -3,3 +3,8 @@ target/
 *.iml
 uploads/productos/*
 !uploads/productos/.gitkeep
+!uploads/productos/polo-basico-algodon.png
+!uploads/productos/zapatillas-urbanas.png
+!uploads/productos/gorra-clasica.png
+!uploads/productos/mochila-urbana.png
+!uploads/productos/billetera-cuero.png

@@ -2,12 +2,14 @@
 -- Script de creacion de base de datos: tienda_virtual3
 -- Proyecto: Tienda Virtual (Spring Boot + Angular)
 --
--- Esto es OPCIONAL: si dejas spring.jpa.hibernate.ddl-auto=update
--- y createDatabaseIfNotExist=true en application.properties,
--- Spring Boot crea la base y las tablas solo al arrancar.
--- Este script existe por si prefieres crearla manualmente desde
--- MySQL Workbench o necesitas entregarlo como evidencia del modelo
--- de datos.
+-- Este script es OBLIGATORIO: la aplicacion usa
+-- spring.jpa.hibernate.ddl-auto=validate, por lo que Spring Boot
+-- NO crea ni modifica el esquema, solo valida que coincida con las
+-- entidades. Hay que ejecutar este script manualmente antes de
+-- levantar el backend.
+--
+-- ADVERTENCIA: hace DROP DATABASE IF EXISTS tienda_virtual3 antes de
+-- recrearla, lo que BORRA todos los datos existentes en esa base.
 -- =========================================================
 
 DROP DATABASE IF EXISTS tienda_virtual3;
@@ -114,12 +116,11 @@ INSERT INTO categorias (nombre, descripcion) VALUES
     ('Mochilas',    'Mochilas y bolsos para uso diario'),
     ('Accesorios',  'Relojes, billeteras, cinturones y otros accesorios');
 
--- Las imagenes deben colocarse en tienda-backend/uploads/productos/ con
--- estos nombres exactos (formato JPG). Si prefieres PNG o WEBP, cambia
--- la extension aqui abajo para que coincida con el archivo que subas.
+-- Las imagenes demo ya estan incluidas en tienda-backend/uploads/productos/
+-- con estos nombres (formato PNG).
 INSERT INTO productos (nombre, descripcion, precio, stock, imagen_url, activo, categoria_id) VALUES
-    ('Polo basico algodon',  'Polo 100% algodon, corte regular', 39.90, 50, '/uploads/productos/polo-basico-algodon.jpg', TRUE, (SELECT id FROM categorias WHERE nombre = 'Ropa')),
-    ('Zapatillas urbanas',   'Zapatillas casuales para uso diario', 149.90, 30, '/uploads/productos/zapatillas-urbanas.jpg', TRUE, (SELECT id FROM categorias WHERE nombre = 'Zapatillas')),
-    ('Gorra clasica',        'Gorra ajustable con visera curva', 29.90, 40, '/uploads/productos/gorra-clasica.jpg', TRUE, (SELECT id FROM categorias WHERE nombre = 'Gorras')),
-    ('Mochila urbana 20L',   'Mochila resistente al agua con compartimento para laptop', 89.90, 25, '/uploads/productos/mochila-urbana.jpg', TRUE, (SELECT id FROM categorias WHERE nombre = 'Mochilas')),
-    ('Billetera de cuero',   'Billetera de cuero sintetico con varios compartimentos', 45.00, 60, '/uploads/productos/billetera-cuero.jpg', TRUE, (SELECT id FROM categorias WHERE nombre = 'Accesorios'));
+    ('Polo basico algodon',  'Polo 100% algodon, corte regular', 39.90, 50, '/uploads/productos/polo-basico-algodon.png', TRUE, (SELECT id FROM categorias WHERE nombre = 'Ropa')),
+    ('Zapatillas urbanas',   'Zapatillas casuales para uso diario', 149.90, 30, '/uploads/productos/zapatillas-urbanas.png', TRUE, (SELECT id FROM categorias WHERE nombre = 'Zapatillas')),
+    ('Gorra clasica',        'Gorra ajustable con visera curva', 29.90, 40, '/uploads/productos/gorra-clasica.png', TRUE, (SELECT id FROM categorias WHERE nombre = 'Gorras')),
+    ('Mochila urbana 20L',   'Mochila resistente al agua con compartimento para laptop', 89.90, 25, '/uploads/productos/mochila-urbana.png', TRUE, (SELECT id FROM categorias WHERE nombre = 'Mochilas')),
+    ('Billetera de cuero',   'Billetera de cuero sintetico con varios compartimentos', 45.00, 60, '/uploads/productos/billetera-cuero.png', TRUE, (SELECT id FROM categorias WHERE nombre = 'Accesorios'));

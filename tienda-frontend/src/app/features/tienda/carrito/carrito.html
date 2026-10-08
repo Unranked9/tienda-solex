@@ -14,7 +14,7 @@
 
     <div class="carrito-items">
       <div class="item-row" *ngFor="let item of carritoService.itemsCarrito()">
-        <img [src]="fileBaseUrl + item.imagenUrl" *ngIf="item.imagenUrl" />
+        <img [src]="item.imagenUrl ? fileBaseUrl + item.imagenUrl : placeholderImg" (error)="onImgError($event)" />
 
         <div class="item-info">
           <h3>{{ item.nombre }}</h3>

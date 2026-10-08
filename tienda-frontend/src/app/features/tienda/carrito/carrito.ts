@@ -7,6 +7,7 @@ import { Carrito as CarritoService } from '../../../core/services/carrito';
 import { VentaService } from '../../../core/services/venta';
 import { NotificationService } from '../../../core/services/notification';
 import { environment } from '../../../../environments/environment';
+import { PRODUCTO_PLACEHOLDER, manejarErrorImagenProducto } from '../../../shared/utils/imagen.util';
 import {
   MetodoPago,
   VentaRequest
@@ -26,6 +27,8 @@ import {
 export class Carrito {
 
   fileBaseUrl = environment.apiUrl;
+  placeholderImg = PRODUCTO_PLACEHOLDER;
+  onImgError = manejarErrorImagenProducto;
 
   metodoPago: MetodoPago = 'YAPE';
 

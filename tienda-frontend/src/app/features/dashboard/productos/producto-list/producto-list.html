@@ -19,7 +19,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let p of productos">
-          <td><img class="row-thumb" [src]="fileBaseUrl + p.imagenUrl" *ngIf="p.imagenUrl" /></td>
+          <td><img class="row-thumb" [src]="p.imagenUrl ? fileBaseUrl + p.imagenUrl : placeholderImg" (error)="onImgError($event)" /></td>
           <td>{{ p.nombre }}</td>
           <td>{{ p.categoriaNombre }}</td>
           <td>S/ {{ p.precio }}</td>
