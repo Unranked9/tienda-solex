@@ -1,0 +1,88 @@
+<div class="admin-page">
+  <div class="admin-page-header">
+    <h2>{{ editandoId ? 'Editar producto' : 'Nuevo producto' }}</h2>
+    <a routerLink="/dashboard/productos" class="btn-outline">Volver al listado</a>
+  </div>
+
+  <div class="producto-form-layout">
+    <form class="admin-form-card producto-form-card" [formGroup]="form" (ngSubmit)="guardar()">
+      <label>Nombre</label>
+      <input type="text" formControlName="nombre" placeholder="Ej. Polo básico algodón" />
+      @if (form.get('nombre')?.invalid && form.get('nombre')?.touched) {
+        <small class="campo-error">El nombre es obligatorio (máx. 120 caracteres).</small>
+      }
+
+      <label>Descripción</label>
+      <textarea formControlName="descripcion" placeholder="Describe brevemente el producto"></textarea>
+
+      <div class="form-row">
+        <div class="form-col">
+          <label>Precio (S/)</label>
+          <input type="number" step="0.01" min="0" formControlName="precio" />
+          @if (form.get('precio')?.invalid && form.get('precio')?.touched) {
+            <small class="campo-error">Ingresa un precio válido mayor a 0.</small>
+          }
+        </div>
+        <div class="form-col">
+          <label>Stock</label>
+          <input type="number" min="0" formControlName="stock" />
+          @if (form.get('stock')?.invalid && form.get('stock')?.touched) {
+            <small class="campo-error">Ingresa un stock válido.</small>
+          }
+        </div>
+      </div>
+
+      <label>Categoría</label>
+      <select formControlName="categoriaId">
+        <option [ngValue]="null" disabled>-- Selecciona una categoría --</option>
+        @for (c of categorias; track c.id) {
+          <option [ngValue]="c.id">{{ c.nombre }}</option>
+        }
+      </select>
+      @if (form.get('categoriaId')?.invalid && form.get('categoriaId')?.touched) {
+        <small class="campo-error">Debes seleccionar una categoría.</small>
+      }
+
+      <div class="form-actions">
+        <button type="submit" [disabled]="guardando">
+          {{ guardando ? 'Guardando...' : (editandoId ? 'Guardar cambios' : 'Crear producto') }}
+        </button>
+        <a routerLink="/dashboard/productos" class="btn-link">Cancelar</a>
+      </div>
+    </form>
+
+    <div class="imagen-panel">
+      <h3>Imagen del producto</h3>
+      <p class="imagen-hint">Formatos permitidos: JPG, PNG o WEBP. Tamaño máximo 5MB.</p>
+
+      <label for="imagen-input" class="imagen-dropzone">
+        @if (imagenPreviewUrl) {
+          <img [src]="imagenPreviewUrl" alt="Vista previa de la nueva imagen" class="imagen-preview" />
+        } @else if (imagenExistenteUrl) {
+          <img [src]="imagenExistenteUrl" alt="Imagen actual del producto" class="imagen-preview" />
+        } @else {
+          <div class="imagen-placeholder">
+            <span class="imagen-placeholder-icono">📷</span>
+            <span>Haz clic para elegir una imagen</span>
+          </div>
+        }
+      </label>
+      <input
+        id="imagen-input"
+        type="file"
+        accept="image/jpeg,image/jpg,image/png,image/webp"
+        (change)="onFileSelected($event)"
+        hidden
+      />
+
+      <div class="imagen-acciones">
+        <label for="imagen-input" class="btn-outline btn-imagen">
+          {{ imagenPreviewUrl || imagenExistenteUrl ? 'Cambiar imagen' : 'Elegir imagen' }}
+        </label>
+        @if (imagenPreviewUrl) {
+          <button type="button" class="btn-danger" (click)="quitarImagenSeleccionada()">Quitar selección</button>
+        }
+      </div>
+    </div>
+  </div>
+</div>

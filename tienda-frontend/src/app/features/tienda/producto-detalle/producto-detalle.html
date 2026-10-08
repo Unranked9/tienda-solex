@@ -1,0 +1,32 @@
+<nav class="breadcrumb" *ngIf="producto">
+  <a routerLink="/catalogo">Productos</a> / <span>{{ producto.categoriaNombre }}</span>
+</nav>
+
+<div class="detalle" *ngIf="producto">
+  <div class="detalle-img-wrap">
+    <img [src]="fileBaseUrl + producto.imagenUrl" *ngIf="producto.imagenUrl" />
+  </div>
+
+  <div class="detalle-info">
+    <span class="categoria-tag">{{ producto.categoriaNombre }}</span>
+    <h1>{{ producto.nombre }}</h1>
+    <p class="precio">S/ {{ producto.precio }}</p>
+
+    <p class="descripcion">{{ producto.descripcion }}</p>
+
+    <p class="stock-info" *ngIf="producto.stock > 0">
+      <span class="dot-ok"></span> {{ producto.stock }} disponibles
+    </p>
+    <p class="stock-info sin-stock" *ngIf="producto.stock === 0">
+      <span class="dot-danger"></span> Sin stock disponible
+    </p>
+
+    <div class="acciones" *ngIf="producto.stock > 0">
+      <div class="cantidad-selector">
+        <label>Cantidad</label>
+        <input type="number" [(ngModel)]="cantidad" min="1" [max]="producto.stock" />
+      </div>
+      <button class="btn-add-carrito" (click)="agregarAlCarrito()">Agregar al carrito</button>
+    </div>
+  </div>
+</div>

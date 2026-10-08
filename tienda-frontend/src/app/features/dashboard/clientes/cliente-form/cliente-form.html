@@ -1,0 +1,21 @@
+<div class="admin-form-card">
+  <h2>{{ editandoId ? 'Editar' : 'Nuevo' }} Cliente</h2>
+
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+    <label>Nombre completo</label>
+    <input type="text" formControlName="nombreCompleto" />
+
+    <label>Correo</label>
+    <input type="email" formControlName="correo" />
+
+    <label>Teléfono</label>
+    <input type="text" formControlName="telefono" />
+
+    <label>Dirección</label>
+    <input type="text" formControlName="direccion" />
+
+    <button type="submit" [disabled]="form.invalid || guardando">
+      {{ guardando ? 'Guardando...' : 'Guardar' }}
+    </button>
+  </form>
+</div>

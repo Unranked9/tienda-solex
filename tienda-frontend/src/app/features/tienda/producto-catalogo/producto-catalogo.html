@@ -1,0 +1,53 @@
+<div class="catalogo-header">
+  <h1>Nuestros productos</h1>
+  <p>Encuentra lo que buscas y agrégalo directo al carrito.</p>
+</div>
+
+<div class="filtros">
+  <input
+    type="text"
+    placeholder="Buscar producto..."
+    [(ngModel)]="filtroNombre"
+  />
+
+  <select [(ngModel)]="categoriaSeleccionada" (ngModelChange)="filtrarPorCategoria()">
+    <option [ngValue]="null">Todas las categorías</option>
+    <option *ngFor="let c of categorias" [ngValue]="c.id">{{ c.nombre }}</option>
+  </select>
+</div>
+
+<div class="grid-productos">
+
+  <a
+    *ngFor="let p of productosFiltrados"
+    [routerLink]="['/producto', p.id]"
+    class="producto-card"
+  >
+    <div class="producto-img-wrap">
+      <img
+        [src]="fileBaseUrl + p.imagenUrl"
+        *ngIf="p.imagenUrl"
+      />
+      <span class="badge-sinstock" *ngIf="p.stock === 0">Sin stock</span>
+    </div>
+
+    <div class="producto-info">
+      <h3>{{ p.nombre }}</h3>
+      <p class="precio">S/ {{ p.precio }}</p>
+
+      <button
+        class="btn-agregar"
+        (click)="agregarAlCarrito(p, $event)"
+        [disabled]="p.stock === 0"
+      >
+        Agregar al carrito
+      </button>
+    </div>
+
+  </a>
+
+</div>
+
+<p class="sin-resultados" *ngIf="productosFiltrados.length === 0">
+  No se encontraron productos.
+</p>

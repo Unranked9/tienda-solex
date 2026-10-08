@@ -1,0 +1,59 @@
+.catalogo-header { margin-bottom: 24px; }
+.catalogo-header h1 { font-size: 1.9rem; font-weight: 800; }
+.catalogo-header p { color: var(--color-text-muted); margin-top: 6px; }
+
+.filtros { display: flex; gap: 14px; margin-bottom: 28px; flex-wrap: wrap; }
+.filtros input, .filtros select {
+  padding: 11px 14px; border: 1px solid var(--color-border);
+  border-radius: 8px; font-size: 0.9rem; background: #fff;
+}
+.filtros input { flex: 1; min-width: 200px; }
+.filtros select { min-width: 180px; }
+.filtros input:focus, .filtros select:focus { outline: none; border-color: var(--color-dark); }
+
+@media (max-width: 480px) {
+  .filtros { flex-direction: column; }
+  .filtros input, .filtros select { width: 100%; min-width: 0; }
+  .catalogo-header h1 { font-size: 1.5rem; }
+}
+
+.grid-productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 22px;
+}
+
+.producto-card {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  display: flex;
+  flex-direction: column;
+}
+.producto-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+.producto-img-wrap { position: relative; background: #f1f1f3; }
+.producto-card img { width: 100%; height: 190px; object-fit: cover; display: block; }
+
+.badge-sinstock {
+  position: absolute; top: 10px; left: 10px;
+  background: var(--color-danger); color: #fff;
+  font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 20px;
+}
+
+.producto-info { padding: 16px; flex: 1; display: flex; flex-direction: column; }
+.producto-info h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
+.precio { font-weight: 800; font-size: 1.05rem; color: var(--color-dark); margin: 0 0 12px 0; }
+
+.btn-agregar {
+  margin-top: auto; background-color: var(--color-dark); color: #fff;
+  border: none; padding: 10px; border-radius: 6px; font-size: 0.85rem; font-weight: 600;
+}
+.btn-agregar:hover:not(:disabled) { background-color: #000; }
+.btn-agregar:disabled { background-color: #d5d5da; color: #8b8b95; cursor: not-allowed; }
+
+.sin-resultados { text-align: center; color: var(--color-text-muted); padding: 60px 0; }

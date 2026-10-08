@@ -1,0 +1,59 @@
+<div class="admin-page">
+  <h1>Bienvenido al Panel</h1>
+
+  <div class="cards" *ngIf="!cargando; else loading">
+    <div class="card">
+      <h3>Productos</h3>
+      <p class="card-number">{{ totalProductos }}</p>
+    </div>
+    <div class="card">
+      <h3>Categorías</h3>
+      <p class="card-number">{{ totalCategorias }}</p>
+    </div>
+    <div class="card">
+      <h3>Ventas</h3>
+      <p class="card-number">{{ totalVentas }}</p>
+    </div>
+    <div class="card">
+      <h3>Clientes</h3>
+      <p class="card-number">{{ totalClientes }}</p>
+    </div>
+  </div>
+
+  <ng-template #loading>
+    <p>Cargando datos...</p>
+  </ng-template>
+
+  <div class="admin-table-wrap" *ngIf="!cargando && ultimasVentas.length > 0">
+    <div class="admin-page-header" style="padding: 18px 18px 0;">
+      <h2 style="font-size:1.05rem;">Últimas ventas</h2>
+    </div>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th># Venta</th>
+          <th>Cliente</th>
+          <th>Total</th>
+          <th>Estado</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let v of ultimasVentas">
+          <td>{{ v.numeroVenta }}</td>
+          <td>{{ v.clienteNombre }}</td>
+          <td>S/ {{ v.total }}</td>
+          <td>
+            <span class="badge-estado"
+              [class.badge-ok]="v.estado === 'PAGADA'"
+              [class.badge-pendiente]="v.estado === 'PENDIENTE'"
+              [class.badge-cancelado]="v.estado === 'ANULADA'">
+              {{ v.estado }}
+            </span>
+          </td>
+          <td>{{ v.fecha | date: 'dd/MM/yyyy HH:mm' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

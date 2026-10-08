@@ -1,0 +1,51 @@
+<div class="register-container">
+
+  <div class="register-card">
+
+    <h2>Crear cuenta</h2>
+
+    <div class="form-group">
+      <label>Nombre</label>
+
+      <input
+        type="text"
+        name="nombre"
+        [(ngModel)]="nombreCompleto"
+        placeholder="Ingresa tu nombre"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Correo</label>
+
+      <input
+        type="email"
+        name="correo"
+        [(ngModel)]="correo"
+        placeholder="correo@gmail.com"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>Contraseña</label>
+
+      <input
+        type="password"
+        name="contrasena"
+        [(ngModel)]="contrasena"
+        placeholder="Ingresa tu contraseña"
+      />
+    </div>
+
+    @if (mensajeError()) {
+      <p class="error-message">{{ mensajeError() }}</p>
+    }
+
+    <button type="button" [disabled]="cargando()" (click)="registrar()">
+      {{ cargando() ? 'Creando cuenta...' : 'Registrarme' }}
+    </button>
+    <a routerLink="/login">Ya tengo una cueta</a>
+
+  </div>
+
+</div>

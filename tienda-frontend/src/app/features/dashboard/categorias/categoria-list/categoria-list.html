@@ -1,0 +1,28 @@
+<div class="admin-page">
+  <div class="admin-page-header">
+    <h2>Categorías</h2>
+    <a routerLink="/dashboard/categorias/nuevo" class="btn-primary">+ Nueva Categoría</a>
+  </div>
+
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Descripción</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of categorias">
+          <td>{{ c.nombre }}</td>
+          <td>{{ c.descripcion }}</td>
+          <td class="acciones">
+            <a class="btn-link" [routerLink]="['/dashboard/categorias/editar', c.id]">Editar</a>
+            <button class="btn-danger" (click)="eliminar(c.id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="admin-page">
+  <div class="admin-page-header">
+    <h2>Ventas</h2>
+  </div>
+
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th># Venta</th>
+          <th>Cliente</th>
+          <th>Total</th>
+          <th>Método de Pago</th>
+          <th>Estado</th>
+          <th>Fecha</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let v of ventas">
+          <tr>
+            <td>{{ v.numeroVenta }}</td>
+            <td>{{ v.clienteNombre }}</td>
+            <td>S/ {{ v.total }}</td>
+            <td>{{ v.metodoPago }}</td>
+            <td>
+              <span class="badge-estado"
+                [class.badge-ok]="v.estado === 'PAGADA'"
+                [class.badge-pendiente]="v.estado === 'PENDIENTE'"
+                [class.badge-cancelado]="v.estado === 'ANULADA'">
+                {{ v.estado }}
+              </span>
+            </td>
+            <td>{{ v.fecha | date: 'dd/MM/yyyy HH:mm' }}</td>
+            <td><button class="btn-link" style="border:none;background:none;" (click)="verDetalle(v)">Ver detalle</button></td>
+          </tr>
+          <tr *ngIf="ventaSeleccionada?.id === v.id">
+            <td colspan="7" style="background:#fafafb;">
+              <table class="admin-table" style="box-shadow:none;">
+                <thead>
+                  <tr>
+                    <th>Producto</th>
+                    <th>Cantidad</th>
+                    <th>Precio Unit.</th>
+                    <th>Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let d of v.detalles">
+                    <td>{{ d.productoNombre }}</td>
+                    <td>{{ d.cantidad }}</td>
+                    <td>S/ {{ d.precioUnitario }}</td>
+                    <td>S/ {{ d.subtotal }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+    </table>
+  </div>
+</div>

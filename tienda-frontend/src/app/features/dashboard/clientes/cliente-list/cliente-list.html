@@ -1,0 +1,32 @@
+<div class="admin-page">
+  <div class="admin-page-header">
+    <h2>Clientes</h2>
+    <a routerLink="/dashboard/clientes/nuevo" class="btn-primary">+ Nuevo Cliente</a>
+  </div>
+
+  <div class="admin-table-wrap">
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Correo</th>
+          <th>Teléfono</th>
+          <th>Dirección</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of clientes">
+          <td>{{ c.nombreCompleto }}</td>
+          <td>{{ c.correo }}</td>
+          <td>{{ c.telefono }}</td>
+          <td>{{ c.direccion }}</td>
+          <td class="acciones">
+            <a class="btn-link" [routerLink]="['/dashboard/clientes/editar', c.id]">Editar</a>
+            <button class="btn-danger" (click)="eliminar(c.id)">Eliminar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+<div class="carrito-page">
+
+  <a routerLink="/" class="volver">&larr; Seguir comprando</a>
+  <h1>Tu carrito</h1>
+
+  <!-- CARRITO VACÍO -->
+  <div *ngIf="carritoService.itemsCarrito().length === 0" class="carrito-vacio">
+    <p>Tu carrito está vacío.</p>
+    <a routerLink="/" class="btn-primary">Ver productos</a>
+  </div>
+
+  <!-- CARRITO CON PRODUCTOS -->
+  <div class="carrito-layout" *ngIf="carritoService.itemsCarrito().length > 0">
+
+    <div class="carrito-items">
+      <div class="item-row" *ngFor="let item of carritoService.itemsCarrito()">
+        <img [src]="fileBaseUrl + item.imagenUrl" *ngIf="item.imagenUrl" />
+
+        <div class="item-info">
+          <h3>{{ item.nombre }}</h3>
+          <p class="item-precio">S/ {{ item.precio.toFixed(2) }}</p>
+        </div>
+
+        <div class="item-cantidad">
+          <button type="button" (click)="disminuir(item.productoId, item.cantidad)">-</button>
+          <span>{{ item.cantidad }}</span>
+          <button type="button" (click)="aumentar(item.productoId, item.cantidad)">+</button>
+        </div>
+
+        <div class="item-subtotal">S/ {{ (item.precio * item.cantidad).toFixed(2) }}</div>
+
+        <button type="button" class="item-eliminar" (click)="eliminar(item.productoId)">&times;</button>
+      </div>
+    </div>
+
+    <!-- PANEL DE TOTALES -->
+    <div class="carrito-totales">
+      <h2>Resumen</h2>
+
+      <div class="fila-total">
+        <span>Subtotal</span>
+        <span>S/ {{ carritoService.totalPrecio().toFixed(2) }}</span>
+      </div>
+      <div class="fila-total">
+        <span>Envío</span>
+        <span>Gratis</span>
+      </div>
+
+      <div class="metodo-pago">
+        <label for="metodoPago">Método de pago</label>
+        <select id="metodoPago" name="metodoPago" [(ngModel)]="metodoPago">
+          <option value="YAPE">Yape</option>
+          <option value="PLIN">Plin</option>
+          <option value="TARJETA">Tarjeta</option>
+          <option value="EFECTIVO">Efectivo</option>
+          <option value="TRANSFERENCIA">Transferencia</option>
+        </select>
+      </div>
+
+      <div class="fila-total total-final">
+        <span>Total</span>
+        <span>S/ {{ carritoService.totalPrecio().toFixed(2) }}</span>
+      </div>
+
+      <p *ngIf="mensajeError" class="error">{{ mensajeError }}</p>
+
+      <button
+        type="button"
+        class="btn-checkout"
+        (click)="procesarVenta()"
+        [disabled]="procesandoVenta"
+      >
+        <span *ngIf="!procesandoVenta">Proceder al pago</span>
+        <span *ngIf="procesandoVenta">Procesando...</span>
+      </button>
+    </div>
+
+  </div>
+
+</div>

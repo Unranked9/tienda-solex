@@ -1,0 +1,23 @@
+.dashboard-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.dashboard-body {
+  display: flex;
+  flex: 1;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 28px 32px;
+  background-color: var(--color-bg, #f7f7f8);
+  min-width: 0;
+}
+
+@media (max-width: 860px) {
+  .dashboard-content {
+    padding: 20px 18px;
+  }
+}

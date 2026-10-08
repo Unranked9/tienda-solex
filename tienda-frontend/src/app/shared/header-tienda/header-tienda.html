@@ -1,0 +1,64 @@
+<header class="tienda-header" [class.con-scroll]="conScroll()">
+  <div class="tienda-header-inner">
+    <a routerLink="/" class="logo" (click)="cerrarMenu()">SOLEX</a>
+
+    <nav class="nav-desktop">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
+      <a routerLink="/catalogo" routerLinkActive="active">Catálogo</a>
+
+      @if (esAdmin()) {
+        <a routerLink="/dashboard/inicio">Panel admin</a>
+      }
+
+      <a routerLink="/carrito" class="carrito-link" routerLinkActive="active">
+        Carrito
+        @if (carrito.totalItems() > 0) {
+          <span class="badge">{{ carrito.totalItems() }}</span>
+        }
+      </a>
+
+      @if (estaAutenticado()) {
+        <button type="button" class="btn-logout" (click)="logout()">Cerrar sesión</button>
+      } @else {
+        <a routerLink="/login" class="btn-outline btn-nav">Iniciar sesión</a>
+      }
+    </nav>
+
+    <div class="nav-mobile-acciones">
+      <a routerLink="/carrito" class="carrito-link" routerLinkActive="active" (click)="cerrarMenu()">
+        🛒
+        @if (carrito.totalItems() > 0) {
+          <span class="badge">{{ carrito.totalItems() }}</span>
+        }
+      </a>
+
+      <button
+        type="button"
+        class="hamburguesa"
+        [class.abierta]="menuAbierto()"
+        (click)="toggleMenu()"
+        [attr.aria-expanded]="menuAbierto()"
+        aria-label="Abrir menú de navegación"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+
+  <nav class="nav-mobile" [class.abierto]="menuAbierto()">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="cerrarMenu()">Inicio</a>
+    <a routerLink="/catalogo" routerLinkActive="active" (click)="cerrarMenu()">Catálogo</a>
+
+    @if (esAdmin()) {
+      <a routerLink="/dashboard/inicio" (click)="cerrarMenu()">Panel admin</a>
+    }
+
+    @if (estaAutenticado()) {
+      <button type="button" class="btn-logout btn-logout-mobile" (click)="logout()">Cerrar sesión</button>
+    } @else {
+      <a routerLink="/login" (click)="cerrarMenu()">Iniciar sesión</a>
+    }
+  </nav>
+</header>

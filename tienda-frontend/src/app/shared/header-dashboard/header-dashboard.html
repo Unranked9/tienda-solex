@@ -1,0 +1,19 @@
+<header class="dashboard-header">
+  <div class="dashboard-header-left">
+    <button
+      type="button"
+      class="hamburguesa-dashboard"
+      (click)="dashboardUi.toggleSidebar()"
+      aria-label="Abrir menú lateral"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <h2>Panel de Administración</h2>
+  </div>
+  <div class="user-info">
+    <span>Hola, Admin</span>
+    <button (click)="logout()">Cerrar sesión</button>
+  </div>
+</header>

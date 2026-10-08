@@ -1,0 +1,41 @@
+<div class="login-container">
+  <div class="login-card">
+
+    <h2>Iniciar sesión</h2>
+    <p class="subtitle">Ingresa tus datos para continuar</p>
+
+    <div class="form-group">
+      <label for="correo">Correo</label>
+      <input
+        type="email"
+        id="correo"
+        name="correo"
+        placeholder="ejemplo@correo.com"
+        [(ngModel)]="correo"
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="contrasena">Contraseña</label>
+      <input
+        type="password"
+        id="contrasena"
+        name="contrasena"
+        placeholder="Ingresa tu contraseña"
+        [(ngModel)]="contrasna"
+      />
+    </div>
+
+    @if (mensajeError()) {
+      <p class="error-message">{{ mensajeError() }}</p>
+    }
+
+    <button type="button" [disabled]="cargando()" (click)="login()">
+      {{ cargando() ? 'Ingresando...' : 'Iniciar sesión' }}
+    </button>
+     <p>
+  ¿No tienes una cuenta?
+  <a routerLink="/registro">Regístrate</a>
+</p>
+  </div>
+</div>

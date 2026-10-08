@@ -1,0 +1,125 @@
+.breadcrumb {
+  font-size: 0.82rem;
+  color: var(--color-text-muted);
+  margin-bottom: 20px;
+}
+.breadcrumb a { text-decoration: none; color: var(--color-text-muted); }
+.breadcrumb a:hover { color: var(--color-dark); }
+
+.detalle {
+  display: flex;
+  gap: 48px;
+  max-width: 1000px;
+}
+
+.detalle-img-wrap {
+  background: var(--color-surface);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: var(--shadow-sm);
+}
+
+.detalle-img-wrap img {
+  width: 380px;
+  height: 380px;
+  object-fit: cover;
+  border-radius: 8px;
+  display: block;
+}
+
+.detalle-info {
+  flex: 1;
+  padding-top: 4px;
+}
+
+.categoria-tag {
+  display: inline-block;
+  background: #f1f1f3;
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.detalle-info h1 {
+  font-size: 1.7rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.precio {
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--color-dark);
+  margin: 0 0 18px 0;
+}
+
+.descripcion {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.stock-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+}
+
+.dot-ok, .dot-danger {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.dot-ok { background: var(--color-success); }
+.dot-danger { background: var(--color-danger); }
+.sin-stock { color: var(--color-danger); }
+
+.acciones {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+}
+
+.cantidad-selector {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cantidad-selector label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.cantidad-selector input {
+  width: 80px;
+  padding: 11px;
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+.btn-add-carrito {
+  flex: 1;
+  padding: 14px 24px;
+  background-color: var(--color-dark);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+.btn-add-carrito:hover { background-color: #000; }
+
+@media (max-width: 720px) {
+  .detalle { flex-direction: column; }
+  .detalle-img-wrap img { width: 100%; height: auto; }
+}

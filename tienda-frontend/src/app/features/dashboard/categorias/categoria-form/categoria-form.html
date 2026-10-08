@@ -1,0 +1,15 @@
+<div class="admin-form-card">
+  <h2>{{ editandoId ? 'Editar' : 'Nueva' }} Categoría</h2>
+
+  <form [formGroup]="form" (ngSubmit)="guardar()">
+    <label>Nombre</label>
+    <input type="text" formControlName="nombre" />
+
+    <label>Descripción</label>
+    <textarea formControlName="descripcion"></textarea>
+
+    <button type="submit" [disabled]="form.invalid || guardando">
+      {{ guardando ? 'Guardando...' : 'Guardar' }}
+    </button>
+  </form>
+</div>

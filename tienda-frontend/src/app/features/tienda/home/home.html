@@ -1,0 +1,139 @@
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-contenido">
+    <span class="hero-kicker">Nueva colección</span>
+    <h1>Viste tu estilo,<br />a tu manera.</h1>
+    <p class="hero-subtexto">
+      Ropa, calzado y accesorios seleccionados para tu día a día. Calidad garantizada,
+      envíos rápidos y precios pensados para ti.
+    </p>
+    <div class="hero-acciones">
+      <a routerLink="/catalogo" class="btn-primary btn-hero">Ver catálogo</a>
+      <a routerLink="/catalogo" class="btn-outline btn-hero btn-hero-outline">Explorar ofertas</a>
+    </div>
+
+    <div class="hero-stats">
+      <div>
+        <strong>+500</strong>
+        <span>Productos</span>
+      </div>
+      <div>
+        <strong>+1000</strong>
+        <span>Clientes felices</span>
+      </div>
+      <div>
+        <strong>24/7</strong>
+        <span>Soporte online</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-visual">
+    <img
+      src="/images/hero.jpg"
+      alt="Modelo luciendo ropa y accesorios de la colección SOLEX"
+      class="hero-imagen"
+    />
+    <div class="hero-visual-card hero-visual-card-2" aria-hidden="true"></div>
+  </div>
+</section>
+
+<!-- ============ BENEFICIOS ============ -->
+<section class="beneficios">
+  <div class="beneficio">
+    <span class="beneficio-icono">🚚</span>
+    <div>
+      <h3>Envío rápido</h3>
+      <p>Recibe tu pedido en la puerta de tu casa en tiempo récord.</p>
+    </div>
+  </div>
+  <div class="beneficio">
+    <span class="beneficio-icono">🔒</span>
+    <div>
+      <h3>Pago seguro</h3>
+      <p>Tus datos y compras están siempre protegidos.</p>
+    </div>
+  </div>
+  <div class="beneficio">
+    <span class="beneficio-icono">↩️</span>
+    <div>
+      <h3>Cambios sencillos</h3>
+      <p>Si algo no te queda bien, te ayudamos con el cambio.</p>
+    </div>
+  </div>
+  <div class="beneficio">
+    <span class="beneficio-icono">⭐</span>
+    <div>
+      <h3>Calidad garantizada</h3>
+      <p>Seleccionamos cada producto pensando en durabilidad.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CATEGORÍAS DESTACADAS ============ -->
+@if (categorias.length > 0) {
+  <section class="seccion">
+    <div class="seccion-header">
+      <h2>Compra por categoría</h2>
+      <p>Encuentra justo lo que necesitas</p>
+    </div>
+
+    <div class="grid-categorias">
+      @for (c of categorias; track c.id) {
+        <button type="button" class="categoria-card" (click)="irACatalogo(c.id)" [style.background]="colorCategoria(c.id)">
+          <span class="categoria-nombre">{{ c.nombre }}</span>
+          <span class="categoria-cta">Ver productos →</span>
+        </button>
+      }
+    </div>
+  </section>
+}
+
+<!-- ============ PRODUCTOS DESTACADOS ============ -->
+<section class="seccion">
+  <div class="seccion-header">
+    <h2>Productos destacados</h2>
+    <p>Lo más nuevo de nuestra tienda</p>
+  </div>
+
+  @if (cargandoProductos) {
+    <p class="seccion-vacia">Cargando productos...</p>
+  } @else if (productosDestacados.length === 0) {
+    <p class="seccion-vacia">Aún no hay productos disponibles.</p>
+  } @else {
+    <div class="grid-productos-home">
+      @for (p of productosDestacados; track p.id) {
+        <a [routerLink]="['/producto', p.id]" class="producto-card-home">
+          <div class="producto-img-wrap-home">
+            @if (p.imagenUrl) {
+              <img [src]="fileBaseUrl + p.imagenUrl" [alt]="p.nombre" loading="lazy" />
+            } @else {
+              <div class="producto-sin-imagen">Sin imagen</div>
+            }
+            @if (p.stock === 0) {
+              <span class="badge-sinstock">Sin stock</span>
+            }
+          </div>
+          <div class="producto-info-home">
+            <h3>{{ p.nombre }}</h3>
+            <p class="precio">S/ {{ p.precio }}</p>
+            <button class="btn-agregar" (click)="agregarAlCarrito(p, $event)" [disabled]="p.stock === 0">
+              Agregar al carrito
+            </button>
+          </div>
+        </a>
+      }
+    </div>
+  }
+
+  <div class="ver-mas-wrap">
+    <a routerLink="/catalogo" class="btn-outline">Ver catálogo completo</a>
+  </div>
+</section>
+
+<!-- ============ BANNER FINAL ============ -->
+<section class="banner-final">
+  <h2>¿Listo para renovar tu estilo?</h2>
+  <p>Explora todo nuestro catálogo y encuentra tu próxima prenda favorita.</p>
+  <a routerLink="/catalogo" class="btn-primary btn-hero">Ir al catálogo</a>
+</section>
