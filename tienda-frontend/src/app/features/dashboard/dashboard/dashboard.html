@@ -3,20 +3,20 @@
 
   <div class="cards" *ngIf="!cargando; else loading">
     <div class="card">
-      <h3>Productos</h3>
-      <p class="card-number">{{ totalProductos }}</p>
+      <h3>Ingresos totales</h3>
+      <p class="card-number">S/ {{ ingresosTotales | number: '1.2-2' }}</p>
     </div>
     <div class="card">
-      <h3>Categorías</h3>
-      <p class="card-number">{{ totalCategorias }}</p>
+      <h3>Ticket promedio</h3>
+      <p class="card-number">S/ {{ ticketPromedio | number: '1.2-2' }}</p>
     </div>
     <div class="card">
-      <h3>Ventas</h3>
-      <p class="card-number">{{ totalVentas }}</p>
+      <h3>Ventas del mes</h3>
+      <p class="card-number">{{ ventasMesActual }}</p>
     </div>
     <div class="card">
-      <h3>Clientes</h3>
-      <p class="card-number">{{ totalClientes }}</p>
+      <h3>Stock bajo</h3>
+      <p class="card-number">{{ productosStockBajo.length }}</p>
     </div>
   </div>
 
@@ -24,7 +24,48 @@
     <p>Cargando datos...</p>
   </ng-template>
 
-  <div class="admin-table-wrap" *ngIf="!cargando && ultimasVentas.length > 0">
+  <div class="admin-table-wrap chart-card" *ngIf="!cargando">
+    <div class="admin-page-header" style="padding: 18px 18px 0;">
+      <h2 style="font-size:1.05rem;">Ventas por método de pago</h2>
+    </div>
+    <div class="bar-chart">
+      <div class="bar-chart-col" *ngFor="let b of ventasPorMetodoPago">
+        <span class="bar-chart-valor">S/ {{ b.monto | number: '1.2-2' }}</span>
+        <div class="bar-chart-barra-wrap">
+          <div class="bar-chart-barra" [style.height.%]="b.porcentaje"></div>
+        </div>
+        <span class="bar-chart-label">{{ b.metodo }}</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-table-wrap" *ngIf="!cargando && productosStockBajo.length > 0" style="margin-top: 24px;">
+    <div class="admin-page-header" style="padding: 18px 18px 0;">
+      <h2 style="font-size:1.05rem;">Stock bajo</h2>
+    </div>
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Producto</th>
+          <th>Categoría</th>
+          <th>Stock</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of productosStockBajo">
+          <td>{{ p.nombre }}</td>
+          <td>{{ p.categoriaNombre }}</td>
+          <td>{{ p.stock }}</td>
+          <td class="acciones">
+            <a class="btn-link" [routerLink]="['/dashboard/productos/editar', p.id]">Editar</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="admin-table-wrap" *ngIf="!cargando && ultimasVentas.length > 0" style="margin-top: 24px;">
     <div class="admin-page-header" style="padding: 18px 18px 0;">
       <h2 style="font-size:1.05rem;">Últimas ventas</h2>
     </div>
@@ -42,7 +83,7 @@
         <tr *ngFor="let v of ultimasVentas">
           <td>{{ v.numeroVenta }}</td>
           <td>{{ v.clienteNombre }}</td>
-          <td>S/ {{ v.total }}</td>
+          <td>S/ {{ v.total | number: '1.2-2' }}</td>
           <td>
             <span class="badge-estado"
               [class.badge-ok]="v.estado === 'PAGADA'"
