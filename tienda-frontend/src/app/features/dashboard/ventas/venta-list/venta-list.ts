@@ -65,4 +65,35 @@ export class VentaList implements OnInit {
       },
     });
   }
+
+  exportarCsv(): void {
+    const ventas = this.ventasFiltradas();
+    if (ventas.length === 0) {
+      this.notification.error('No hay ventas para exportar.');
+      return;
+    }
+
+    const encabezados = ['Número', 'Fecha', 'Cliente', 'Método de Pago', 'Estado', 'Total'];
+    const filas = ventas.map((v) => [
+      v.numeroVenta,
+      v.fecha,
+      v.clienteNombre,
+      v.metodoPago,
+      v.estado,
+      v.total.toFixed(2),
+    ]);
+
+    const escapar = (valor: string): string => `"${valor.replace(/"/g, '""')}"`;
+    const lineas = [encabezados, ...filas].map((fila) => fila.map((c) => escapar(String(c))).join(','));
+    const contenido = '﻿' + lineas.join('\r\n');
+
+    const blob = new Blob([contenido], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const enlace = document.createElement('a');
+    const fecha = new Date().toISOString().slice(0, 10).replace(/-/g, '');
+    enlace.href = url;
+    enlace.download = `ventas_${fecha}.csv`;
+    enlace.click();
+    URL.revokeObjectURL(url);
+  }
 }

@@ -22,6 +22,7 @@ export class ProductoCatalogo implements OnInit {
   categorias: Categoria[] = [];
   filtroNombre = '';
   categoriaSeleccionada: number | null = null;
+  orden: 'nombre' | 'precio-asc' | 'precio-desc' = 'nombre';
   fileBaseUrl = environment.apiUrl;
   placeholderImg = PRODUCTO_PLACEHOLDER;
   onImgError = manejarErrorImagenProducto;
@@ -67,9 +68,19 @@ export class ProductoCatalogo implements OnInit {
   }
 
   get productosFiltrados(): Producto[] {
-    if (!this.filtroNombre.trim()) return this.productos;
-    const texto = this.filtroNombre.toLowerCase();
-    return this.productos.filter((p) => p.nombre.toLowerCase().includes(texto));
+    const texto = this.filtroNombre.trim().toLowerCase();
+    const filtrados = texto
+      ? this.productos.filter((p) => p.nombre.toLowerCase().includes(texto))
+      : [...this.productos];
+
+    switch (this.orden) {
+      case 'precio-asc':
+        return filtrados.sort((a, b) => a.precio - b.precio);
+      case 'precio-desc':
+        return filtrados.sort((a, b) => b.precio - a.precio);
+      default:
+        return filtrados.sort((a, b) => a.nombre.localeCompare(b.nombre));
+    }
   }
 
   agregarAlCarrito(producto: Producto, event: Event): void {

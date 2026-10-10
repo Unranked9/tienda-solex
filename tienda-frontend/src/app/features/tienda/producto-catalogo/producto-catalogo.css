@@ -45,6 +45,12 @@
   font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 20px;
 }
 
+.badge-ultimas {
+  position: absolute; top: 10px; left: 10px;
+  background: var(--color-warning, #d99a1b); color: #fff;
+  font-size: 0.7rem; font-weight: 700; padding: 3px 8px; border-radius: 20px;
+}
+
 .producto-info { padding: 16px; flex: 1; display: flex; flex-direction: column; }
 .producto-info h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 6px; }
 .precio { font-weight: 800; font-size: 1.05rem; color: var(--color-dark); margin: 0 0 12px 0; }

@@ -11,6 +11,10 @@
       <option value="PAGADA">Pagada</option>
       <option value="ANULADA">Anulada</option>
     </select>
+
+    <button class="btn-secondary" [disabled]="ventasFiltradas().length === 0" (click)="exportarCsv()">
+      Exportar CSV
+    </button>
   </div>
 
   <div class="admin-table-wrap">

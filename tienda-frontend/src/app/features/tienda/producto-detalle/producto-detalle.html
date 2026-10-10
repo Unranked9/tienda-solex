@@ -10,7 +10,7 @@
   <div class="detalle-info">
     <span class="categoria-tag">{{ producto.categoriaNombre }}</span>
     <h1>{{ producto.nombre }}</h1>
-    <p class="precio">S/ {{ producto.precio }}</p>
+    <p class="precio">S/ {{ producto.precio.toFixed(2) }}</p>
 
     <p class="descripcion">{{ producto.descripcion }}</p>
 

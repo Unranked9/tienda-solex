@@ -117,7 +117,7 @@
           </div>
           <div class="producto-info-home">
             <h3>{{ p.nombre }}</h3>
-            <p class="precio">S/ {{ p.precio }}</p>
+            <p class="precio">S/ {{ p.precio.toFixed(2) }}</p>
             <button class="btn-agregar" (click)="agregarAlCarrito(p, $event)" [disabled]="p.stock === 0">
               Agregar al carrito
             </button>
