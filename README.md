@@ -34,6 +34,8 @@ Ejecutar `tienda-backend/tienda_virtual3.sql` en MySQL Workbench (ejecutar el sc
 
 > ⚠️ El script hace `DROP DATABASE IF EXISTS tienda_virtual3`: **borra los datos** si ya existía la base. Úsalo solo para instalar o reiniciar.
 
+**Opcional — datos demo:** después del script anterior, ejecutar `tienda-backend/seed_demo.sql` para cargar 4 clientes adicionales (contraseña `Cliente123`), 12 ventas de los últimos 3 meses y 2 productos con stock bajo. Así el dashboard y los reportes se ven con datos realistas. Ejecútalo una sola vez, sobre la base recién creada.
+
 ### 2. Backend (Spring Boot) — puerto 8080
 
 **Opción A — línea de comandos (Maven Wrapper):**
