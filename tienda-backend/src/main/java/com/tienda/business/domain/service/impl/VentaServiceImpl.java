@@ -113,6 +113,26 @@ public class VentaServiceImpl implements VentaService {
                 .toList();
     }
 
+    @Override
+    public VentaResponseDto anular(Long id) {
+        Venta venta = ventaRepository.findById(id)
+                .orElseThrow(() -> new RecursoNoEncontradoException("Venta no encontrada con id: " + id));
+
+        if (venta.getEstado() == EstadoVenta.ANULADA) {
+            throw new SolicitudInvalidaException("La venta ya se encuentra anulada");
+        }
+
+        for (DetalleVenta detalle : venta.getDetalles()) {
+            Producto producto = detalle.getProducto();
+            producto.setStock(producto.getStock() + detalle.getCantidad());
+            productoRepository.save(producto);
+        }
+
+        venta.setEstado(EstadoVenta.ANULADA);
+        Venta guardada = ventaRepository.save(venta);
+        return ventaMapper.toResponseDto(guardada);
+    }
+
     private String generarNumeroVenta() {
         String fecha = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
         int aleatorio = ThreadLocalRandom.current().nextInt(1000, 9999);

@@ -1,1 +1,14 @@
 /* estilos via clases globales en styles.css */
+
+.admin-filters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.admin-filters select {
+  padding: 6px 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--color-border);
+}

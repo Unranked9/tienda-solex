@@ -3,6 +3,16 @@
     <h2>Ventas</h2>
   </div>
 
+  <div class="admin-filters">
+    <label for="filtroEstado">Estado:</label>
+    <select id="filtroEstado" [(ngModel)]="filtroEstado">
+      <option value="">Todas</option>
+      <option value="PENDIENTE">Pendiente</option>
+      <option value="PAGADA">Pagada</option>
+      <option value="ANULADA">Anulada</option>
+    </select>
+  </div>
+
   <div class="admin-table-wrap">
     <table class="admin-table">
       <thead>
@@ -17,7 +27,7 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngFor="let v of ventas">
+        <ng-container *ngFor="let v of ventasFiltradas()">
           <tr>
             <td>{{ v.numeroVenta }}</td>
             <td>{{ v.clienteNombre }}</td>
@@ -32,7 +42,10 @@
               </span>
             </td>
             <td>{{ v.fecha | date: 'dd/MM/yyyy HH:mm' }}</td>
-            <td><button class="btn-link" style="border:none;background:none;" (click)="verDetalle(v)">Ver detalle</button></td>
+            <td>
+              <button class="btn-link" style="border:none;background:none;" (click)="verDetalle(v)">Ver detalle</button>
+              <button *ngIf="v.estado === 'PAGADA'" class="btn-link" style="border:none;background:none;color:#c0392b;" (click)="anular(v)">Anular</button>
+            </td>
           </tr>
           <tr *ngIf="ventaSeleccionada?.id === v.id">
             <td colspan="7" style="background:#fafafb;">

@@ -10,4 +10,5 @@ public interface VentaService {
     VentaResponseDto buscarPorId(Long id);
     List<VentaResponseDto> listar();
     List<VentaResponseDto> listarPorCliente(String correoCliente);
+    VentaResponseDto anular(Long id);
 }

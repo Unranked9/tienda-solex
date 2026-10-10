@@ -24,7 +24,6 @@ public class VentaController {
     public ResponseEntity<VentaResponseDto> crear(Authentication authentication,
                                                     @Valid @RequestBody VentaRequestDto request) {
         String correoCliente = authentication.getName();
-        System.out.println("CORREO AUTENTICADO: " + correoCliente);
         VentaResponseDto response = ventaService.crear(correoCliente, request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
@@ -44,5 +43,10 @@ public class VentaController {
     @GetMapping
     public ResponseEntity<List<VentaResponseDto>> listar() {
         return ResponseEntity.ok(ventaService.listar());
+    }
+
+    @PatchMapping("/{id}/anular")
+    public ResponseEntity<VentaResponseDto> anular(@PathVariable Long id) {
+        return ResponseEntity.ok(ventaService.anular(id));
     }
 }

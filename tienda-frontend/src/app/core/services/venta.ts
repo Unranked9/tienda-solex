@@ -48,4 +48,12 @@ export class VentaService {
       `${this.baseUrl}/mis-compras`
     );
   }
+
+  anular(id: number): Observable<Venta> {
+
+    return this.http.patch<Venta>(
+      `${this.baseUrl}/${id}/anular`,
+      {}
+    );
+  }
 }
