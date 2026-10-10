@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface VentaRepository extends JpaRepository<Venta, Long> {
     List<Venta> findByClienteCorreoOrderByFechaDesc(String correo);
+    boolean existsByClienteId(Long clienteId);
 }

@@ -3,6 +3,7 @@ import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Cliente } from '../../../../models/cliente.model';
 import { ClienteService } from '../../../../core/services/cliente';
+import { NotificationService } from '../../../../core/services/notification';
 
 @Component({
   selector: 'app-cliente-list',
@@ -15,7 +16,8 @@ export class ClienteList implements OnInit {
 
   constructor(
     private clienteService: ClienteService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private notification: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -28,7 +30,9 @@ export class ClienteList implements OnInit {
         this.clientes = data;
         this.cdr.markForCheck();
       },
-      error: (err) => console.error('Error al cargar clientes', err),
+      error: (err) => {
+        this.notification.error(err?.error?.message ?? 'No se pudieron cargar los clientes.');
+      },
     });
   }
 
@@ -37,7 +41,9 @@ export class ClienteList implements OnInit {
 
     this.clienteService.delete(id).subscribe({
       next: () => this.cargar(),
-      error: (err) => console.error('Error al eliminar cliente', err),
+      error: (err) => {
+        this.notification.error(err?.error?.message ?? 'No se pudo eliminar el cliente.');
+      },
     });
   }
 }

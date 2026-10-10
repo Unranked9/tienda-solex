@@ -6,6 +6,7 @@ import com.tienda.business.api.exception.RecursoDuplicadoException;
 import com.tienda.business.api.exception.RecursoNoEncontradoException;
 import com.tienda.business.data.entity.Cliente;
 import com.tienda.business.data.repository.ClienteRepository;
+import com.tienda.business.data.repository.VentaRepository;
 import com.tienda.business.domain.mapper.ClienteMapper;
 import com.tienda.business.domain.service.ClienteService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.List;
 public class ClienteServiceImpl implements ClienteService {
 
     private final ClienteRepository clienteRepository;
+    private final VentaRepository ventaRepository;
     private final ClienteMapper clienteMapper;
 
     @Override
@@ -54,7 +56,12 @@ public class ClienteServiceImpl implements ClienteService {
 
     @Override
     public void eliminar(Long id) {
-        clienteRepository.delete(obtenerEntidad(id));
+        Cliente cliente = obtenerEntidad(id);
+        if (ventaRepository.existsByClienteId(id)) {
+            throw new RecursoDuplicadoException(
+                    "No se puede eliminar al cliente '" + cliente.getNombreCompleto() + "' porque tiene ventas registradas");
+        }
+        clienteRepository.delete(cliente);
     }
 
     @Override

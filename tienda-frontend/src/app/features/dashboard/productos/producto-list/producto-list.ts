@@ -5,6 +5,7 @@ import { Producto } from '../../../../models/producto.model';
 import { ProductoService } from '../../../../core/services/producto';
 import { environment } from '../../../../../environments/environment';
 import { PRODUCTO_PLACEHOLDER, manejarErrorImagenProducto } from '../../../../shared/utils/imagen.util';
+import { NotificationService } from '../../../../core/services/notification';
 
 @Component({
   selector: 'app-producto-list',
@@ -20,7 +21,8 @@ export class ProductoList implements OnInit {
 
   constructor(
     private productoService: ProductoService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private notification: NotificationService
   ) {}
 
   ngOnInit(): void {
@@ -33,7 +35,9 @@ export class ProductoList implements OnInit {
         this.productos = data;
         this.cdr.markForCheck();
       },
-      error: (err) => console.error('Error al cargar productos', err),
+      error: (err) => {
+        this.notification.error(err?.error?.message ?? 'No se pudieron cargar los productos.');
+      },
     });
   }
 
@@ -42,7 +46,9 @@ export class ProductoList implements OnInit {
 
     this.productoService.delete(id).subscribe({
       next: () => this.cargarProductos(),
-      error: (err) => console.error('Error al eliminar', err),
+      error: (err) => {
+        this.notification.error(err?.error?.message ?? 'No se pudo eliminar el producto.');
+      },
     });
   }
 }

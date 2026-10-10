@@ -6,6 +6,7 @@ import com.tienda.business.api.exception.RecursoDuplicadoException;
 import com.tienda.business.api.exception.RecursoNoEncontradoException;
 import com.tienda.business.data.entity.Categoria;
 import com.tienda.business.data.repository.CategoriaRepository;
+import com.tienda.business.data.repository.ProductoRepository;
 import com.tienda.business.domain.mapper.CategoriaMapper;
 import com.tienda.business.domain.service.CategoriaService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +21,7 @@ import java.util.List;
 public class CategoriaServiceImpl implements CategoriaService {
 
     private final CategoriaRepository categoriaRepository;
+    private final ProductoRepository productoRepository;
     private final CategoriaMapper categoriaMapper;
 
     @Override
@@ -62,6 +64,10 @@ public class CategoriaServiceImpl implements CategoriaService {
     @Override
     public void eliminar(Long id) {
         Categoria categoria = obtenerEntidad(id);
+        if (productoRepository.existsByCategoriaId(id)) {
+            throw new RecursoDuplicadoException(
+                    "No se puede eliminar la categoria '" + categoria.getNombre() + "' porque tiene productos asociados");
+        }
         categoriaRepository.delete(categoria);
     }
 

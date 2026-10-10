@@ -2,6 +2,7 @@ package com.tienda.business.api.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
@@ -61,6 +62,15 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ApiErrorResponse> manejarAccesoDenegado(AccessDeniedException ex, HttpServletRequest request) {
         return construir(HttpStatus.FORBIDDEN, "No tienes permisos para realizar esta accion", request, List.of());
+    }
+
+    // Respaldo para violaciones de integridad referencial no validadas explicitamente
+    // en el service (ej: FK sin el existsBy... correspondiente). No se expone el
+    // detalle de la BD al cliente.
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<ApiErrorResponse> manejarIntegridadDatos(DataIntegrityViolationException ex, HttpServletRequest request) {
+        log.error("Violacion de integridad de datos en {}", request.getRequestURI(), ex);
+        return construir(HttpStatus.CONFLICT, "No se puede completar la operacion porque el registro tiene datos relacionados", request, List.of());
     }
 
     // Handler "catch-all": no debe filtrar el mensaje interno de la excepcion
